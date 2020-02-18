@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Holtwood+One+SC" rel="stylesheet">
+</head>
+<body>
+
+<!--Entiteiten-->
+<div>
+    <div class="green1"></div>
+    <div class="green2"></div>
+    <div class="green3"></div>
+    <div class="green4"></div>
+    <div class="stripes"></div>
+    <div class="stripes2"></div>
+    <div class="block"></div>
+    <div class="block2"></div>
+    <img class="tree" src="images/tree.png">
+    <img class="tree2" src="images/tree.png">
+    <img class="tree3" src="images/tree.png">
+    <img class="tree4" src="images/tree.png">
+    <img class="tree5" src="images/tree.png">
+    <img class="tree6" src="images/tree.png">
+    <img class="tree7" src="images/tree.png">
+    <img class="tree8" src="images/tree.png">
+    <img class="tree9" src="images/tree.png">
+    <img class="tree10" src="images/tree.png">
+    <img class="tree11" src="images/tree.png">
+    <img class="tree12" src="images/tree.png">
+    <img class="tree13" src="images/tree.png">
+    <img class="tree14" src="images/tree.png">
+    <img class="pond" src="images/waterPond.png">
+    <img class="pond2" src="images/waterPond.png">
+
+    <img id="stoplight" class="stoplight" src="images/StoplightOff.png">
+    <img id="stoplight2" class="stoplight2" src="images/StoplightOff.png">
+    <img id="stoplight3" class="stoplight3" src="images/StoplightOff.png">
+    <img id="stoplight4" class="stoplight4" src="images/StoplightOff.png">
+
+    <div id="auto" class="auto">
+        <div class="pingEffect"></div>
+    </div>
+    <div id="auto2" class="auto2">
+        <div class="pingEffect2"></div>
+    </div>
+    <div id="auto3" class="auto3">
+        <div class="pingEffect3"></div>
+    </div>
+    <div id="auto4" class="auto4">
+        <div class="pingEffect4"></div>
+    </div>
+
+    <div id="birdy" class="birdy"></div>
+    <div id="birdy2" class="birdy2"></div>
+    <div id="birdy3" class="birdy3  "></div>
+
+    <img id="duck" class="duck" src="images/duck.png">
+    <img id="duck2" class="duck2" src="images/duck.png">
+
+
+</div>
+
+<!--buttons-->
+<form>
+    <h1>Traffic Controller</h1>
+    <input class="starter" type="button" value="Start!" onclick="startoff()">
+    <input class="lightColor" type="button" value="Lights Off" onclick="stopknop()">
+    <input class="lightColor" type="button" value="Flash" onclick="knipperenknop()">
+    <input class="lightColor" type="button" value="Lights On" onclick="aanzettenknop()">
+    <input class="carColor" type="button" value="Start" onclick="starten()">
+    <input class="carColor" type="button" value="Stop" onclick="stoppen()">
+    <input class="carColor" type="button" value="Reset" onclick="opnieuw()">
+</form>
+
+
+<script type="text/javascript">
+
+    /*auto's*/
+    var rijden = false;
+    var auto = document.getElementById("auto");
+    var auto2 = document.getElementById("auto2");
+    var auto3 = document.getElementById("auto3");
+    var auto4 = document.getElementById("auto4");
+    var car1positionY = 6.5;
+    var car2positionY = 89.5;
+    var car3positionX = 3.5;
+    var car4positionX = 95;
+    var test;
+
+    /*stoplichten*/
+    var werken;
+    var werken2;
+    var werken3;
+    var buitenwerking;
+    var werken4;
+    var werken5;
+    var werken6;
+    var buitenwerking2;
+    var stoplight = document.getElementById('stoplight');
+    var stoplight2 = document.getElementById('stoplight2');
+    var stoplight3 = document.getElementById('stoplight3');
+    var stoplight4 = document.getElementById('stoplight4');
+    var stopCars;
+    var stopCars2;
+
+    /*bird experimental*/
+    var birdy = document.getElementById('birdy');
+    var birdy2 = document.getElementById('birdy2');
+    var birdy3 = document.getElementById('birdy3');
+    var birdposX = -5;
+    var bird2posX = -3;
+    var bird3posX = 105;
+    var test2;
+    var flight = false;
+
+    /*ducks*/
+    var ducky = document.getElementById('duck');
+    var ducky2 = document.getElementById('duck2');
+    var duckposX = 9    ;
+    var duck2posX = 9;
+    var test3;
+    var swim = false;
+    var duckalternate = false;
+    var duckalternate2 = false;
+
+
+    /*Controller for lights*/
+
+    function aanzettenknop() {
+        aanzetten();
+        aanzetten2();
+
+    }
+
+    function stopknop() {
+        stop();
+        stop2();
+
+    }
+
+    function knipperenknop() {
+        knipperen();
+        knipperen2();
+
+    }
+
+    /*------------------STOPLIGHTS set 1----------------*/
+
+    function changeRed() {
+        stopCars = true;
+        stoplight.src = 'images/StoplightRed.png';
+        stoplight2.src = 'images/StoplightRed.png';
+    }
+
+    function changeYellow() {
+        stopCars = false;
+        stoplight.src = 'images/StoplightYellow.png';
+        stoplight2.src = 'images/StoplightYellow.png';
+    }
+
+    function changeGreen() {
+        stopCars = false;
+        stoplight.src = 'images/StoplightGreen.png';
+        stoplight2.src = 'images/StoplightGreen.png';
+    }
+
+    function changeOff() {
+        stopCars = false;
+        stoplight.src = 'images/StoplightOff.png';
+        stoplight2.src = 'images/StoplightOff.png';
+    }
+
+    function stop() {
+        clearTimeout(werken);
+        clearTimeout(buitenwerking);
+        clearTimeout(werken2);
+        clearTimeout(werken3);
+        changeOff();
+    }
+
+    function knipperen() {
+        clearTimeout(werken);
+        clearTimeout(werken2);
+        clearTimeout(werken3);
+        changeYellow();
+        buitenwerking = setTimeout(changeOff, 500);
+        buitenwerking = setTimeout(knipperen, 1000);
+    }
+
+    function aanzetten() {
+        clearTimeout(buitenwerking);
+        changeRed();
+        werken = setTimeout(changeGreen, 6000); //na 6 sec groen
+        werken2 = setTimeout(changeYellow, 10000); //na 10 sec Geel
+        werken3 = setTimeout(aanzetten, 12000); //na 12 sec opnieuw
+    }
+
+    /*------------------STOPLIGHTS set 2----------------*/
+
+    function changeRed2() {
+        stopCars2 = true;
+        stoplight3.src = 'images/StoplightRed.png';
+        stoplight4.src = 'images/StoplightRed.png';
+    }
+
+    function changeYellow2() {
+        stopCars2 = false;
+        stoplight3.src = 'images/StoplightYellow.png';
+        stoplight4.src = 'images/StoplightYellow.png';
+    }
+
+    function changeGreen2() {
+        stopCars2 = false;
+        stoplight3.src = 'images/StoplightGreen.png';
+        stoplight4.src = 'images/StoplightGreen.png';
+    }
+
+    function changeOff2() {
+        stopCars2 = false;
+        stoplight3.src = 'images/StoplightOff.png';
+        stoplight4.src = 'images/StoplightOff.png';
+    }
+
+    function stop2() {
+        clearTimeout(buitenwerking2);
+        clearTimeout(werken4);
+        clearTimeout(werken5);
+        clearTimeout(werken6);
+        changeOff2();
+    }
+
+    function knipperen2() {
+        clearTimeout(werken4);
+        clearTimeout(werken5);
+        clearTimeout(werken6);
+        changeYellow2();
+        buitenwerking2 = setTimeout(changeOff2, 500);
+        buitenwerking2 = setTimeout(knipperen2, 1000);
+    }
+
+    function aanzetten2() {
+        clearTimeout(buitenwerking2);
+        changeGreen2();
+        werken4 = setTimeout(changeYellow2, 4000); //na 4 sec groen
+        werken5 = setTimeout(changeRed2, 6000); //na 8 sec Geel
+        werken6 = setTimeout(aanzetten2, 12000); //na 10 sec opnieuw
+    }
+    function startoff() {
+        aanzettenknop();
+        starten();
+
+    }
+
+    /*-------------BEWEGENDE ELEMENTEN-------------*/
+
+    // AUTO'S START //
+
+    function starten() {
+        if (rijden === false) {
+            rijden = true;
+            test = setInterval(function () {
+
+                // AUTO 1 ///////////
+                if (stopCars === true && car1positionY > 23 && car1positionY < 25) {
+                    // STAND STILL
+                } else {
+                    /*Start driving*/
+                    car1positionY = (car1positionY + 0.5);
+                    auto.style.bottom = auto.style.bottom = car1positionY + '%';
+                    if (car1positionY > 105) {
+                        car1positionY = -5;
+                    }
+                }
+
+                // AUTO 2 ////////////
+                if (stopCars === true && car2positionY < 70 && car2positionY > 68) {
+                    // STAND STILL
+                } else {
+                    /*Start driving*/
+                    car2positionY = (car2positionY - 0.6);
+                    auto2.style.bottom = auto2.style.bottom = car2positionY + '%';
+                    if (car2positionY < -5) {
+                        car2positionY = 105;
+                    }
+                }
+
+                // AUTO 3 ////////////
+                if (stopCars2 === true && car3positionX > 49 && car3positionX < 51) {
+                    // STAND STILL
+                } else {
+                    /*Start driving*/
+                    car3positionX = (car3positionX + 0.3);
+                    auto3.style.left = auto3.style.left = car3positionX + '%';
+                    if (car3positionX > 105) {
+                        car3positionX = -5;
+                    }
+                }
+
+                // AUTO 4 ////////////
+                if (stopCars2 === true && car4positionX < 75 && car4positionX > 73) {
+                    // STAND STILL
+                } else {
+                    /*Start driving*/
+                    car4positionX = (car4positionX - 0.25);
+                    auto4.style.left = auto4.style.left = car4positionX + '%';
+                    if (car4positionX < -5) {
+                        car4positionX = 105;
+                    }
+                }
+
+            }, 20);
+
+
+        }
+    }
+
+    // STOP //
+    function stoppen() {
+        rijden = false;
+        clearInterval(test);
+    }
+
+    // RESET //
+    function opnieuw() {
+        car1positionY = 6.8;
+        car2positionY = 89.7;
+        car3positionX = 3.5;
+        car4positionX = 95;
+
+        rijden = false;
+        clearInterval(test);
+
+        // AUTO 1 /////////
+        car1positionY = 6.8;
+        auto.style.bottom = car1positionY + "%";
+        // AUTO 2 /////////
+        car2positionY = 89.7;
+        auto2.style.bottom = car2positionY + "%";
+        // AUTO 3 /////////
+        car3positionX = 3.5;
+        auto3.style.left = car3positionX + "%";
+        // AUTO 4 /////////
+        car4positionX = 95;
+        auto4.style.left = car4positionX + "%";
+    }
+
+    // BIRDS //
+    function bird() {
+        if (flight === false) {
+            flight = true;
+            test2 = setInterval(function () {
+
+                // Bird 1///////////
+                birdposX = (birdposX + 0.1);
+                birdy.style.left = birdy.style.left = birdposX + '%';
+                if (birdposX > 110) {
+                    birdposX = -5;
+                    birdy.style.top = 15 + '%';
+                }
+                // Bird 2///////////
+                bird2posX = (bird2posX + 0.2);
+                birdy2.style.left = birdy2.style.left = bird2posX + '%';
+                if (bird2posX > 110) {
+                    bird2posX = -5;
+                    birdy2.style.top = 9 + '%';
+                }
+                // Bird 3///////////
+                bird3posX = (bird3posX - 0.15);
+                birdy3.style.left = birdy3.style.left = bird3posX + '%';
+                if (bird3posX < -10) {
+                    bird3posX = 105;
+                    birdy3.style.top = 3 + '%';
+                }
+
+
+            }, 30);
+        }
+    }
+
+    bird();
+
+    // DUCKS //
+    function duck() {
+        if (swim === false) {
+            swim = true;
+            test3 = setInterval(function () {
+
+                // duck 1///////////
+
+                if (duckalternate === false) {
+                    duckposX = (duckposX + 0.1);
+                    ducky.style.left = ducky.style.left = duckposX + '%';
+                    ducky.style.webkitTransform = 'scaleX(' + 1 + ')';
+                } else {
+                    duckposX = (duckposX - 0.1);
+                    ducky.style.left = ducky.style.left = duckposX + '%';
+                }
+                if (duckposX > 12) {
+                    duckalternate = true;
+                    ducky.style.webkitTransform = 'scaleX(' + -1 + ')';
+                }
+                if (duckposX < 9) {
+                    duckalternate = false;
+                }
+
+
+                // duck 2///////////
+
+                if (duckalternate2 === false) {
+                    duck2posX = (duck2posX + 0.2);
+                    ducky2.style.right = ducky2.style.right = duck2posX + '%';
+                    ducky2.style.webkitTransform = 'scaleX(' + -1 + ')';
+                } else {
+                    duck2posX = (duck2posX - 0.2);
+                    ducky2.style.right = ducky2.style.right = duck2posX + '%';
+                }
+                if (duck2posX > 13) {
+                    duckalternate2 = true;
+                    ducky2.style.webkitTransform = 'scaleX(' + 1 + ')';
+                }
+                if (duck2posX < 9) {
+                    duckalternate2 = false;
+                }
+            }, 100);
+        }
+    }
+
+    duck();
+
+</script>
+
+
+</body>
+</html>
